@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<fitnessClub>
+
+<Service>
+	<title>Crossfit</title>
+	<price>100</price>
+	<shedule>Monday 13:00</shedule>
+
+	<instructor name = "Vladimir" surName = "Popovich" middleName = "Dmitrievuch" education= "higher"></instructor>
+
+</Service>
+
+
+<Service>
+	<title>Fitness</title>
+	<price>200</price>
+	<shedule>Wednesday 16:00</shedule>
+
+	<instructor name = "Vladimir" surName = "Popovich" middleName = "Dmitrievuch" education= "higher"></instructor>
+
+</Service>
+
+<Service>
+	<title>Sports holiday</title>
+	<price>50</price>
+	<shedule>Saturday 12:00</shedule>
+
+	<instructor name = "Danil" surName = "Grom" middleName = "Alexandrovich" education= "middle"></instructor>
+
+</Service>
+
+<Service>
+	<title>Meeting with Trukhanovets</title>
+	<price>120</price>
+	<shedule>Thursday 12:00</shedule>
+
+	<instructor name = "Sergey" surName = "Govoprun" middleName = "Vladimirovich" education= "middle"></instructor>
+
+</Service>
+
+<Service>
+	<title>Group lesson</title>
+	<price>20</price>
+	<shedule>Sunday 11:00</shedule>
+
+	<instructor name = "Alexandr" surName = "Popovich" middleName = "Vladimirovich" education= "hight"></instructor>
+
+</Service>
+
+<Service>
+	<title>Physical Education</title>
+	<price>110</price>
+	<shedule>Wednesday 16:00</shedule>
+
+	<instructor name = "Alexandr" surName = "Popovich" middleName = "Vladimirovich" education= "middle"></instructor>
+
+</Service>
+
+
+<Service>
+	<title>Sports recommendations
+</title>
+	<price>130</price>
+	<shedule>Tuesday 12:00</shedule>
+
+	<instructor name = "Sergey" surName = "Govoprun" middleName = "Vladimirovich" education= "hight"></instructor>
+
+</Service>
+
+</fitnessClub>
+

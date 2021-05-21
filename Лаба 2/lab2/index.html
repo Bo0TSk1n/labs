@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+        #main-frame-div {
+            padding: 30px;
+        }
+
+        .dropdown-item {
+            cursor: pointer;
+        }
+
+        .c > div {
+            width: 200px;
+            margin-top: 10px;
+        }
+
+        div.dropdown-menu {
+            top: 0;
+            left: 102%;
+            margin-top: 0;
+        }
+
+    </style>
+
+</head>
+<body>
+<div id="main-frame-div">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-column c">
+
+                    <div class="btn-lab btn-group" data-lab="1">
+                        <div class="btn btn-secondary dropdown-toggle">Лабораторная
+                            #1</div>
+                        <div id="drp-1" class="dropdown-menu dropdown-menu-left">
+                            <a target="_blank" href="../lab1/index.html"
+                               class="dropdown-item">Лабораторная #1</a>
+                        </div>
+                    </div>
+
+                    <div class="btn-lab btn-group" data-lab="2">
+                        <div class="btn btn-secondary dropdown-toggle">Лабораторная
+                            #2</div>
+                        <div id="drp-2" class="dropdown-menu dropdown-menu-left">
+                            <a target="_blank" href="../lab2/index.html"
+                               class="dropdown-item">Лабораторная #2.1</a>
+                            <a target="_blank" href="../lab2/index2.html"
+                               class="dropdown-item">Лабораторная #2.2</a>
+                        </div>
+                    </div>
+
+                    <div class="btn-lab btn-group" data-lab="3">
+                        <div class="btn btn-secondary dropdown-toggle">Лабораторная
+                            #3</div>
+                        <div id="drp-3" class="dropdown-menu dropdown-menu-left">
+                           <a target="_blank" href="../lab3/index.html"
+                               class="dropdown-item">Лабораторная #3.1</a>
+                        </div>
+                    </div>
+
+                    <div class="btn-lab btn-group" data-lab="4">
+                        <div class="btn btn-secondary dropdown-toggle">Лабораторная
+                            #4</div>
+                        <div id="drp-4" class="dropdown-menu dropdown-menu-left">
+                            <a target="_blank" href="../lab4/index.html"
+                               class="dropdown-item">Лабораторная #4.1</a>
+                            <a target="_blank" href="../lab4/index2.html"
+                               class="dropdown-item">Лабораторная #4.2</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    let lab_btns = document.getElementsByClassName('btn-lab');
+
+    let c_open = 0;
+
+    function menuOpen(e) {
+        let lab_num = e.currentTarget.dataset.lab;
+
+        c_open = lab_num;
+
+        if (e.currentTarget.close_trigger) {
+            clearTimeout(e.currentTarget.close_trigger);
+        }
+
+        document.all['drp-' + lab_num].style.display = 'block';
+    }
+
+    function menuClose(e) {
+        let lab_num = e.currentTarget.dataset.lab;
+
+        c_open = 0;
+
+        e.currentTarget.close_trigger = setTimeout(function () {
+            document.all['drp-' + lab_num].style.display = 'none';
+        }, 0);
+
+    }
+
+    function closeAll() {
+        for(let i=1; i<5; i++){
+            document.all['drp-' + i].style.display = 'none';
+        }
+        c_open = 0;
+    }
+
+    function menuToggle(e) {
+        if(c_open === 0){
+            menuOpen(e);
+        }else if(c_open === e.currentTarget.dataset.lab){
+            menuClose(e);
+        }else{
+            closeAll();
+            menuOpen(e);
+        }
+
+    }
+
+    for (const lab_btn of lab_btns) {
+        lab_btn.addEventListener("click", menuToggle);
+    }
+
+</script>
+</body>
+</html>

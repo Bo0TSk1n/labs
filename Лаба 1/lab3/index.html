@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                             supported by Chrome and Opera */
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        #main-frame-div {
+            padding: 30px;
+            height: 100%;
+        }
+
+        .field {
+            border: 2px solid black;
+            width: 100%;
+            height: 100%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .cont {
+            height: 100%;
+            width: 100%;
+        }
+
+        .target {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+            background-image: url("target.png");
+            position: absolute;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        .stats {
+            margin-right: 2rem;
+            font-size: 2rem;
+        }
+
+        .copy {
+            margin-left: 2rem;
+            font-size: 1.25rem;
+        }
+
+        .good {
+            position: absolute;
+            color: green;
+            font-weight: bold;
+            font-size: 75%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bad {
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 75%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
+</head>
+<body>
+<div id="main-frame-div">
+    <div class="cont d-flex flex-column align-items-center">
+        <div class="controls d-flex flex-row align-items-center">
+            <div class="stats"><span id="hit">0</span> / <span id="spawned">0</span></div>
+            <button id="start" class="btn btn-success mr-2" type="button">Start</button>
+            <button id="stop" class="btn btn-danger" type="button">Stop</button>
+            <div class="copy"></div>
+        </div>
+        <div class="field" id="field">
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        let targetSize = 32;
+        let filedPadding = 32;
+        let max_scale = 1;
+
+        let field = $('#field');
+        let field_js = field.get(0);
+
+        let fw = field_js.offsetWidth;
+        let fh = field_js.offsetHeight;
+
+        let game;
+        let spawned = 0;
+        let hit = 0;
+
+        function spawnRandomTarget() {
+            let x = getRandomInt(targetSize * max_scale / 2 + filedPadding, fw - targetSize * max_scale / 2 - filedPadding);
+            let y = getRandomInt(targetSize * max_scale / 2 + filedPadding, fh - targetSize * max_scale / 2 - filedPadding);
+
+            let new_el = document.createElement('div');
+            new_el.classList.add('target');
+            new_el.style.top = y + 'px';
+            new_el.style.left = x + 'px';
+
+            let good_el = document.createElement('div');
+            good_el.innerHTML = "Good!";
+            good_el.classList.add('good');
+            good_el.classList.add('noselect');
+            good_el.style.top = y + 'px';
+            good_el.style.left = x + 'px';
+
+            let bad_el = document.createElement('div');
+            bad_el.innerHTML = "Oops!";
+            bad_el.classList.add('bad');
+            bad_el.classList.add('noselect');
+            bad_el.style.top = y + 'px';
+            bad_el.style.left = x + 'px';
+
+            $(new_el).click(function () {
+                field_js.appendChild(good_el);
+                $(good_el).fadeOut(1250).delay(1250).queue(function (next) {
+                    $(good_el).remove();
+                    next();
+                });
+                $(new_el).remove();
+                hit++;
+                $('#hit').get(0).innerHTML = hit;
+            });
+
+            $({scale: 0}).animate({scale: max_scale * 100}, {
+                duration: 2000,
+                easing: 'swing',
+                step: function () {
+                    $(new_el).css({transform: 'translate(-50%, -50%) scale(' + this.scale/100 + ')'});
+                }
+            }).delay(0).animate({scale: 0}, {
+                duration: 2000,
+                easing: 'swing',
+                step: function () {
+                    $(new_el).css({transform: 'translate(-50%, -50%) scale(' + this.scale/100 + ')'});
+                }
+            }).queue(function (next) {
+                $(new_el).remove();
+                next();
+            }).queue(function (next) {
+                field_js.appendChild(bad_el);
+                $(bad_el).fadeOut(1250).delay(1250).queue(function (next) {
+                    $(bad_el).remove();
+                    next();
+                });
+                next();
+            });
+
+            field_js.appendChild(new_el);
+        }
+
+        function startGame() {
+            spawned = 0;
+            hit = 0;
+            $('#hit').get(0).innerHTML = hit;
+
+
+            game = setInterval(function () {
+                spawnRandomTarget();
+                spawned++;
+                $('#spawned').get(0).innerHTML = spawned;
+                if (spawned >= 30) {
+                    clearInterval(game);
+                    $('#start').prop('disabled', false);
+                }
+
+            }, 600);
+        }
+
+        function stopGame() {
+            clearInterval(game);
+        }
+
+        $('#start').click(function () {
+            $('#start').prop('disabled', true);
+            startGame();
+        });
+        $('#stop').click(function () {
+            $('#start').prop('disabled', false);
+            stopGame();
+        });
+    });
+
+</script>
+</body>
+</html>

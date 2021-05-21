@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <script src="../common/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+        #main-frame-div {
+            padding: 30px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                             supported by Chrome and Opera */
+        }
+
+        #tx {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            margin-left: -180px;
+            background-color: #FFFF00;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            let tx = $('#tx');
+
+            tx.click(function () {
+
+                tx.animate({
+                    'left': '50%',
+                    'margin-left': '-80px'
+                }, 1500, function () {
+                    tx.animate({
+                        'padding': '15px 30px',
+                        'margin-left': '-100px'
+                    }, 1500, function () {
+                        tx.animate({
+                            'font-size': '0.75rem',
+                            'padding': '24px 56px'
+                        }, 1500, function(){
+                            tx.animate({
+                                'left': '0',
+                                'margin-left': '0'
+                            }, 1500);
+                        });
+                    });
+                });
+
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="main-frame-div">
+    <div class="text noselect" id="tx">Click here</div>
+</div>
+</body>
+</html>

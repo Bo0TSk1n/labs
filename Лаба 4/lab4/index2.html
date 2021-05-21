@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+        #main-frame-div {
+            padding: 30px;
+        }
+
+        .regex-row > * {
+            width: auto;
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        input.regex-slash {
+            width: 50px;
+            padding-left: 20px;
+        }
+
+        input.regex-slash:nth-child(1) {
+            margin-left: 0;
+        }
+
+        #exp-regex-options {
+            width: 80px;
+        }
+
+        #exp-regex {
+            white-space: pre;
+            word-spacing: 10px;
+        }
+        #res-placeholder>*{
+            margin-bottom: .5rem;
+        }
+    </style>
+    <script>
+        $(function () {
+            let exp_src = $('#exp-src');
+            let exp_regex = $('#exp-regex');
+            let exp_regex_options = $('#exp-regex-options');
+            let res_placeholder = $('#res-placeholder');
+
+            function computeRes() {
+                let inp_text = exp_src.val();
+                let inp_regex = exp_regex.val();
+                let inp_regex_options = exp_regex_options.val();
+
+                let regex_text = new RegExp(inp_regex, inp_regex_options);
+
+                let matches = inp_text.match(regex_text);
+
+                let ins_text = '';
+                for (const m of matches){
+                    ins_text += '<input id="exp-res" class="form-control" type="text" value="'+m+'">';
+                }
+                console.log(ins_text);
+                res_placeholder.html(ins_text);
+            }
+
+            computeRes();
+            exp_src.on('input', computeRes);
+            exp_regex.on('input', computeRes);
+            exp_regex_options.on('input', computeRes);
+
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="offset-3 col-6">
+            <div class="form-group">
+                <label for="exp-src">Исходное выражение</label>
+                <input id="exp-src" class="form-control" type="text" value="avb a1b a2b a3b a4b a5b abb acb">
+            </div>
+            <div class="form-group">
+                <label for="exp-regex">Регулярное выражение</label>
+                <div class="d-flex flex-row justify-content-between regex-row">
+                    <input class="form-control regex-slash" type="text" value="/" disabled>
+                    <div class="flex-grow-1">
+                        <input id="exp-regex" class="form-control" type="text" value="a[^0-9]b">
+                    </div>
+                    <input class="form-control regex-slash" type="text" value="/" disabled>
+                    <input id="exp-regex-options" class="form-control" type="text" value="gmi">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Результаты</label>
+                <div id="res-placeholder">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

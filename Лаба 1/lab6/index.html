@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <script src="../common/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+        body {
+            background-color: #cccccc;
+        }
+
+        #tx {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            margin-top: -100px;
+            margin-left: -100px;
+            top: 50%;
+            left: 50%;
+            background-color: black;
+        }
+
+        #act-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-left: -300px;
+        }
+
+    </style>
+    <script>
+        $(function () {
+            let tx = $('#tx');
+
+            $('#act-btn').click(function () {
+
+                tx
+                    .animate({
+                        'top': '100%',
+                        'margin-top': '-200px'
+                    }, 1500)
+                    .delay(1000)
+                    .animate({
+                        'top': '0',
+                        'margin-top': '0'
+                    }, 1500)
+                    .delay(1000)
+                    .fadeOut(1500)
+                    .delay(1000)
+                    .fadeIn(1500)
+                    .delay(1000)
+                    .animate({
+                       backgroundColor: 'green'
+                    }, 1000)
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="main-frame-div">
+    <button id="act-btn" type="button" class="btn btn-success">Click here</button>
+    <div id="tx"></div>
+</div>
+</body>
+</html>

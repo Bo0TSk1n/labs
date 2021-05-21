@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../common/jquery-3.5.1.js"></script>
+    <script src="../common/bootstrap.bundle.js"></script>
+    <script src="../common/moment-with-locales.js"></script>
+    <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+    <style>
+
+    </style>
+    <script>
+        $(function () {
+            let check_tries = 0;
+            let card_good = false;
+
+            let inp_card = $('#inp-card');
+            let inp_exp = $('#inp-exp');
+            let inp_cvv = $('#inp-cvv');
+
+            $('#my-form').submit(function () {
+                if (card_good) {
+                    alert("Форма успешно отправлена!");
+                } else {
+                    alert("Проверьте данные карты перед отправкой!");
+                    return false;
+                }
+
+            });
+
+            function all_good() {
+                return inp_card.good && inp_exp.good && inp_cvv.good;
+            }
+
+            function update_card_good() {
+                card_good = all_good();
+            }
+
+            function set_valid(el) {
+                el.addClass('is-valid');
+                el.removeClass('is-invalid');
+                el.good = true;
+                update_card_good();
+            }
+
+            function set_invalid(el) {
+                el.addClass('is-invalid');
+                el.removeClass('is-valid');
+                el.good = false;
+                update_card_good();
+            }
+
+            function clear_check(el) {
+                el.removeClass('is-valid');
+                el.removeClass('is-invalid');
+                el.good = false;
+                update_card_good();
+            }
+
+            inp_card.change(function () {
+                clear_check(inp_card);
+            });
+            inp_exp.change(function () {
+                clear_check(inp_exp);
+            });
+            inp_cvv.change(function () {
+                clear_check(inp_cvv);
+            });
+
+            $('#btn-check').click(function () {
+                let first_card_digit = inp_card.val().substring(0, 1);
+                let approp_digits = [3, 4, 5, 6];
+
+                let now = moment();
+                let card_exp_date = moment(inp_exp.val(), 'MM/YY');
+
+                if (inp_card.get(0).validity.valid && approp_digits.includes(parseInt(first_card_digit))) {
+                    set_valid(inp_card);
+                } else {
+                    set_invalid(inp_card);
+                }
+
+                if (inp_exp.get(0).validity.valid && card_exp_date.isAfter(now)) {
+                    set_valid(inp_exp);
+                } else {
+                    set_invalid(inp_exp);
+                }
+
+                if (inp_cvv.get(0).validity.valid) {
+                    set_valid(inp_cvv);
+                } else {
+                    set_invalid(inp_cvv);
+                }
+
+                update_card_good()
+
+                if (!card_good) {
+                    check_tries++;
+                }
+
+                if (check_tries === 3) {
+                    inp_card.prop('disabled', true);
+                    inp_exp.prop('disabled', true);
+                    inp_cvv.prop('disabled', true);
+                    $('#btn-check').prop('disabled', true);
+                }
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="offset-3 col-6">
+            <form id="my-form" action="" method="post">
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="inp-f-name">Имя</label>
+                        <input class="form-control" type="text" id="inp-f-name" placeholder="James"
+                               pattern="[A-Za-z]{1,25}" maxlength="25" required>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="inp-l-name">Фамилия</label>
+                        <input class="form-control" type="text" id="inp-l-name" placeholder="Bond"
+                               pattern="[A-Za-z]{1,25}" maxlength="25" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inp-org">Организация</label>
+                    <input class="form-control" type="text" id="inp-org" placeholder="Secret Service"
+                           pattern="[A-Za-z]{1,25}" maxlength="25" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="inp-card">Номер карты</label>
+                        <input class="form-control" type="text" id="inp-card" pattern="[0-9]{16}"
+                               maxlength="16" placeholder="1111222233334444" required>
+                        <div class="invalid-feedback">Карта не может иметь такой формат.</div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inp-exp">Exp.</label>
+                        <input class="form-control" type="text" id="inp-exp" pattern="[0-9]{2}/[0-9]{2}"
+                               placeholder="01/12" maxlength="5" required>
+                        <div class="invalid-feedback">Срок действия карты истёк!</div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="inp-cvv">CVV2</label>
+                        <input class="form-control" type="text" id="inp-cvv" placeholder="018"
+                               pattern="[0-9]{3}" maxlength="3" required>
+                        <div class="invalid-feedback">Неверный CVV код!</div>
+                    </div>
+                    <div class="form-group col-2">
+                        <label for="btn-check">Проверить</label>
+                        <button id="btn-check" class="btn btn-outline-success btn-block" type="button">Ch
+                        </button>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inp-phone">Телефон</label>
+                    <input class="form-control" type="tel" id="inp-phone" pattern="[0-9]{12}"
+                           placeholder="380985104412" maxlength="12" required>
+                </div>
+                <div class="form-group">
+                    <label for="inp-email">Почта</label>
+                    <input class="form-control" type="email" id="inp-email" placeholder="JBond@google.com"
+                           required>
+                </div>
+                <div class="form-group text-center">
+                    <button id="btn-submit" class="btn btn-primary" type="submit">Отправить</button>
+                    <button class="btn btn-secondary" type="reset">Очистить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<fitnessClub>
+
+<Service>
+	<title>Киев</title>
+	<stop>Кировоград</stop>
+	<shedule>2020-06-28</shedule>
+	<time>06:00:00</time>
+	<price>120</price>
+	<free>8</free>
+</Service>
+
+
+<Service>
+	<title>Черкассы</title>
+	<stop>Кировоград</stop>
+	<shedule>2020-06-28</shedule>
+	<time>06:00:00</time>
+	<price>80</price>
+	<free>36</free>
+</Service>
+
+<Service>
+	<title>Одесса</title>
+	<stop>Днепр</stop>
+	<shedule>2020-06-30</shedule>
+	<time>05:00:00</time>
+	<price>100</price>
+	<free>22</free>
+</Service>
+
+<Service>
+	<title>Львов</title>
+	<stop>Умань</stop>
+	<shedule>2020-06-24</shedule>
+	<time>16:00:00</time>
+	<price>180</price>
+	<free>20</free>
+</Service>
+
+<Service>
+	<title>Винница</title>
+	<stop>Кировоград</stop>
+	<shedule>2020-06-24</shedule>
+	<time>16:00:00</time>
+	<price>180</price>
+	<free>20</free>
+</Service>
+
+<Service>
+	<title>Херсон</title>
+	<stop>Кировоград</stop>
+	<shedule>2020-06-25</shedule>
+	<time>18:00:00</time>
+	<price>100</price>
+	<free>48</free>
+</Service>
+
+
+<Service>
+	<title>Харьков</title>
+	<stop>Кривой Рог</stop>
+	<shedule>2020-06-22</shedule>
+	<time>20:00:00</time>
+	<price>80</price>
+	<free>36</free>
+</Service>
+
+</fitnessClub>
+

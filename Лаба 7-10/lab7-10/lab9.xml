@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="xsl_style.xsl"?>
+<!DOCTYPE schedule [
+        <!ELEMENT schedule (bus)*>
+        <!ELEMENT bus (to|stops|date|tours)*>
+        <!ELEMENT to (#PCDATA)>
+        <!ATTLIST to
+                id CDATA #REQUIRED>
+        <!ELEMENT stops (stop)*>
+        <!ELEMENT stop (#PCDATA)>
+        <!ATTLIST stop
+                id CDATA #REQUIRED>
+        <!ELEMENT date (#PCDATA)>
+        <!ELEMENT tours (tour)*>
+        <!ELEMENT tour (time|price|free)*>
+        <!ELEMENT time (#PCDATA)>
+        <!ELEMENT price (#PCDATA)>
+        <!ELEMENT free (#PCDATA)>
+        ]>
+<schedule  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="lab8.xsd">
+    <bus>
+        <to id="1">Киев</to>
+        <stops>
+            <stop id="102">Кировоград</stop>
+            <stop id="104">Черкассы</stop>
+        </stops>
+        <date>2020-06-28</date>
+        <tours>
+            <tour>
+                <time>06:00:00</time>
+                <price>120.00</price>
+                <free>8</free>
+            </tour>
+            <tour>
+                <time>12:00:00</time>
+                <price>80.40</price>
+                <free>36</free>
+            </tour>
+        </tours>
+    </bus>
+        <bus>
+        <to id="104">Черкассы</to>
+        <stops>
+            <stop id="102">Кировоград</stop>
+        </stops>
+        <date>2020-06-28</date>
+        <tours>
+            <tour>
+                <time>06:00:00</time>
+                <price>80.25</price>
+                <free>8</free>
+            </tour>
+            <tour>
+                <time>12:00:00</time>
+                <price>60.25</price>
+                <free>36</free>
+            </tour>
+        </tours>
+    </bus>
+    <bus>
+        <to id="104">Одесса</to>
+        <stops>
+
+        </stops>
+        <date>2020-06-30</date>
+        <tours>
+            <tour>
+                <time>05:00:00</time>
+                <price>100.00</price>
+                <free>22</free>
+            </tour>
+        </tours>
+    </bus>
+     <bus>
+        <to id="160">Львов</to>
+        <stops>
+            <stop id="102">Кировоград</stop>
+            <stop id="140">Умань</stop>
+            <stop id="144">Винница</stop>
+            <stop id="156">Хмельницкий</stop>
+            <stop id="158">Тернополь</stop>
+        </stops>
+        <date>2020-06-24</date>
+        <tours>
+            <tour>
+                <time>16:00:00</time>
+                <price>320.20</price>
+                <free>20</free>
+            </tour>
+            <tour>
+                <time>20:00:00</time>
+                <price>280.00</price>
+                <free>48</free>
+            </tour>
+        </tours>
+    </bus>
+    <bus>
+        <to id="144">Винница</to>
+        <stops>
+            <stop id="102">Кировоград</stop>
+            <stop id="140">Умань</stop>
+        </stops>
+        <date>2020-06-24</date>
+        <tours>
+            <tour>
+                <time>16:00:00</time>
+                <price>180.00</price>
+                <free>20</free>
+            </tour>
+            <tour>
+                <time>20:00:00</time>
+                <price>160.80</price>
+                <free>48</free>
+            </tour>
+        </tours>
+    </bus>
+</schedule>
